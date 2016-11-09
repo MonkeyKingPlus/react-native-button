@@ -1,0 +1,26 @@
+{
+  "name": "react-native-button",
+  "version": "1.0.0",
+  "description": "react-native-button",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MonkeyKingPlus/react-native-button.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-button"
+  ],
+  "author": "m860",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MonkeyKingPlus/react-native-button/issues"
+  },
+  "homepage": "https://github.com/MonkeyKingPlus/react-native-button#readme"
+}

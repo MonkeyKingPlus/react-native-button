@@ -17,7 +17,7 @@ React Native Button
 $ npm install mkp-react-native-button --save
 ```
 # Support
-ios/and
+ios/android
 
 # Quick Start
 ```jsx

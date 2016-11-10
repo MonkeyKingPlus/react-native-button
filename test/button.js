@@ -40,7 +40,9 @@ export default class Button extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			disabled: props.disabled
+			disabled: props.disabled,
+			opacity: 1,
+			activity: false
 		};
 	}
 
@@ -48,7 +50,8 @@ export default class Button extends Component {
 		children: PropTypes.any.isRequired,
 		styles: PropTypes.object,
 		disabled: PropTypes.bool,
-		onPress: PropTypes.func
+		onPress: PropTypes.func,
+		activeOpacity: PropTypes.number
 	}
 	static defaultProps = {
 		styles: {
@@ -58,6 +61,7 @@ export default class Button extends Component {
 			disabledText: {}
 		},
 		disabled: false,
+		activeOpacity: 0.2,
 		onPress: ()=>null
 	}
 
@@ -67,14 +71,28 @@ export default class Button extends Component {
 		}));
 	}
 
-	disable(value=true){
-		this.setState(Object.assign({},this.state,{
-			disabled:value
-		}));
+	disable(value = true,callback=()=>null) {
+		console.log("begin disable ...")
+		this.setState(Object.assign({}, this.state, {
+			disabled: value
+		}),()=>{
+			console.log("end disable");
+			callback();
+		});
+	}
+	componentWillReceiveProps(nextProps){
+		console.log(nextProps);
+		console.log(this.state);
+	}
+	componentDidMount(){
+		console.log("=========== did mount");
 	}
 
 	render() {
-		let viewStyle = [styles.view, this.props.styles.view];
+		console.log("render button",this.state.disabled)
+		let viewStyle = [styles.view, this.props.styles.view, {
+			opacity: this.state.opacity
+		}];
 		let textStyle = [styles.text, this.props.styles.text];
 		if (this.state.disabled) {
 			viewStyle.push(styles.disabledView);
@@ -85,15 +103,34 @@ export default class Button extends Component {
 		return (
 			<TouchableWithoutFeedback
 				disabled={this.state.disabled}
+				onPressIn={event=>{
+					let len=this.props.onPress.length;
+					if(len<=1){
+						this.setState(Object.assign({},this.state,{
+							opacity:this.props.activeOpacity,
+							activity:true
+						}));
+					}
+				}}
+				onPressOut={event=>{
+					let len=this.props.onPress.length;
+					if(len<=1){
+						this.setState(Object.assign({},this.state,{
+							opacity:1,
+							activity:false
+						}));
+					}
+				}}
 				onPress={event=>{
 					let len=this.props.onPress.length;
 					if(len<=1){
 						this.props.onPress(event);
 					}
 					else{
-						this.disable();
-						this.props.onPress(event,()=>{
-							this.disable(false);
+						this.disable(true,()=>{
+							this.props.onPress(event,()=>{
+								this.disable(false);
+							});
 						});
 					}
 				}}>

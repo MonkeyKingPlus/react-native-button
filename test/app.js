@@ -4,7 +4,8 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TouchableOpacity
+	TouchableOpacity,
+	Image
 } from 'react-native';
 import Button from "./button";
 
@@ -60,7 +61,12 @@ export default class APP extends Component{
 					marginTop:5,
 					borderRadius:10
 				}}}>border readius button</Button>
-				<Button styles={buttonStyles}>image button</Button>
+				<Button styles={buttonStyles}
+					onPress={event=>{
+						this.message("image button is pressed")
+					}}>
+					<Image source={require("./assets/button.png")}/>
+				</Button>
 			</View>
 		);
 	}

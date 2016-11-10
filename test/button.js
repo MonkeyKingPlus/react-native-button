@@ -44,6 +44,7 @@ export default class Button extends Component {
 			opacity: 1,
 			activity: false
 		};
+		console.log(props.children, typeof(props.children));
 	}
 
 	static propTypes = {
@@ -71,25 +72,17 @@ export default class Button extends Component {
 		}));
 	}
 
-	disable(value = true,callback=()=>null) {
-		console.log("begin disable ...")
+	disable(value = true, callback = ()=>null) {
 		this.setState(Object.assign({}, this.state, {
 			disabled: value
-		}),()=>{
-			console.log("end disable");
-			callback();
-		});
+		}), callback);
 	}
-	componentWillReceiveProps(nextProps){
-		console.log(nextProps);
-		console.log(this.state);
-	}
-	componentDidMount(){
-		console.log("=========== did mount");
+
+	componentWillReceiveProps(nextProps) {
+
 	}
 
 	render() {
-		console.log("render button",this.state.disabled)
 		let viewStyle = [styles.view, this.props.styles.view, {
 			opacity: this.state.opacity
 		}];
@@ -135,7 +128,8 @@ export default class Button extends Component {
 					}
 				}}>
 				<View style={viewStyle}>
-					<Text style={textStyle}>{this.props.children}</Text>
+					{typeof this.props.children === "string" && <Text style={textStyle}>{this.props.children}</Text>}
+					{typeof this.props.children !== "string" && this.props.children}
 				</View>
 			</TouchableWithoutFeedback>
 		);

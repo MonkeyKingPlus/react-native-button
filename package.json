@@ -15,7 +15,9 @@
   },
   "keywords": [
     "react-native",
-    "react-native-button"
+    "react-native-button",
+    "react-native-image-button",
+    "async button"
   ],
   "author": "m860",
   "license": "MIT",

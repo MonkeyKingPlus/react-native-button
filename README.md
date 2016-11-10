@@ -1,6 +1,10 @@
 # react-native-button
 
 <!-- badge -->
+[![npm version](https://img.shields.io/npm/v/mkp-react-native-button.svg)](https://www.npmjs.com/package/mkp-react-native-button)
+[![npm license](https://img.shields.io/npm/l/mkp-react-native-button.svg)](https://www.npmjs.com/package/mkp-react-native-button)
+[![npm download](https://img.shields.io/npm/dm/mkp-react-native-button.svg)](https://www.npmjs.com/package/mkp-react-native-button)
+[![npm download](https://img.shields.io/npm/dt/mkp-react-native-button.svg)](https://www.npmjs.com/package/mkp-react-native-button)
 <!-- endbadge -->
 
 React Native Button

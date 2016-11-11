@@ -60,7 +60,7 @@ import Button from "mkp-react-native-button";
 
 # Props
 ## children:any
-You can specify a string or component for children.if that is string will render a <Text/>.
+You can specify a string or component for children.if that is string will render a Text element.
 ## disabled:Boolean
 ## styles:Object
 styles is a object consist of view,text,disabledView,disabledText.following simple code:

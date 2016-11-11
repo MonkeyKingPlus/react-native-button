@@ -67,9 +67,10 @@ export default class Button extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState(Object.assign({}, this.state, {
-			disabled: nextProps.disabled
-		}));
+		console.log(nextProps);
+		// this.setState(Object.assign({}, this.state, {
+		// 	disabled: nextProps.disabled
+		// }));
 	}
 
 	disable(value = true, callback = ()=>null) {
@@ -78,9 +79,13 @@ export default class Button extends Component {
 		}), callback);
 	}
 
-	componentWillReceiveProps(nextProps) {
 
+	componentWillReceiveProps(nextProps) {
+		this.setState(Object.assign({}, this.state, {
+			disabled: nextProps.disabled
+		}));
 	}
+	
 
 	render() {
 		let viewStyle = [styles.view, this.props.styles.view, {
@@ -97,36 +102,31 @@ export default class Button extends Component {
 			<TouchableWithoutFeedback
 				disabled={this.state.disabled}
 				onPressIn={event=>{
-					let len=this.props.onPress.length;
-					if(len<=1){
-						this.setState(Object.assign({},this.state,{
-							opacity:this.props.activeOpacity,
-							activity:true
-						}));
-					}
+					this.setState(Object.assign({},this.state,{
+						opacity:this.props.activeOpacity,
+						activity:true
+					}));
 				}}
 				onPressOut={event=>{
-					let len=this.props.onPress.length;
-					if(len<=1){
-						this.setState(Object.assign({},this.state,{
-							opacity:1,
-							activity:false
-						}));
-					}
-				}}
-				onPress={event=>{
-					let len=this.props.onPress.length;
-					if(len<=1){
-						this.props.onPress(event);
-					}
-					else{
-						this.disable(true,()=>{
-							this.props.onPress(event,()=>{
-								this.disable(false);
+					this.setState(Object.assign({},this.state,{
+						opacity:1,
+						activity:false
+					}),()=>{
+						let len=this.props.onPress.length;
+						if(len<=1){
+							this.props.onPress(event);
+						}
+						else{
+							this.disable(true,()=>{
+								this.props.onPress(event,()=>{
+									this.disable(false);
+								});
 							});
-						});
-					}
+
+						}
+					});
 				}}>
+
 				<View style={viewStyle}>
 					{typeof this.props.children === "string" && <Text style={textStyle}>{this.props.children}</Text>}
 					{typeof this.props.children !== "string" && this.props.children}

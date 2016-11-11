@@ -57,3 +57,40 @@ import Button from "mkp-react-native-button";
     <Image source={require("./assets/button.png")}/>
 </Button>
 ```
+
+# Props
+## children:any
+You can specify a string or component for children.if that is string will render a <Text/>.
+## disabled:Boolean
+## styles:Object
+styles is a object consist of view,text,disabledView,disabledText.following simple code:
+```javascript
+styles={
+    view: {},
+    text: {},
+    disabledView: {},
+    disabledText: {}
+}
+```
+## onPress:Function
+invoke when button is pressed.following simple code:
+```javascript
+<Button
+    onPress={event=>{
+    	//do something
+    }}>button</Button>
+```
+when fetch data from remote , button can be disable before response come back later restore .
+if you want to get the effect you must provide the second parameter in onPress , and all of request is done you need to invoke callback.
+following code:
+```javascript
+<Button
+    onPress={(event,callback)=>{
+    	//begin request
+    	fetch("").then(res=>{
+    		callback();
+    	});
+    }}>button</Button>
+```
+## activeOpacity:Number
+Marking the button's opacity when pressIn.

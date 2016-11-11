@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
 	AppRegistry,
 	StyleSheet,
@@ -9,38 +9,41 @@ import {
 } from 'react-native';
 import Button from "./button";
 
-const styles=StyleSheet.create({
-	view:{
-		justifyContent:"center",
-		alignItems:"center",
-		flex:1
+const styles = StyleSheet.create({
+	view: {
+		justifyContent: "center",
+		alignItems: "center",
+		flex: 1
 	},
-	message:{
-		color:"red",
+	message: {
+		color: "red",
 	}
 });
-const buttonStyles=StyleSheet.create({
-	view:{
-		marginTop:5
+const buttonStyles = StyleSheet.create({
+	view: {
+		marginTop: 5
 	}
 });
 
-export default class APP extends Component{
+export default class APP extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
-		this.state={
-			message:""
+		this.state = {
+			message: "",
+			disabled: false
 		};
 	}
 
-	message(message){
-		this.setState({
-			message
-		});
+	message(message) {
+		this.setState(Object.assign({}, this.state, {message}));
 	}
 
-	render(){
+	disable() {
+		this.setState(Object.assign({}, this.state, {disabled: true}));
+	}
+
+	render() {
 		return (
 			<View style={styles.view}>
 				<Text style={styles.message}>{this.state.message}</Text>
@@ -51,9 +54,9 @@ export default class APP extends Component{
 						this.message("i am pressed");
 					}}>button</Button>
 				<Button styles={buttonStyles} onPress={(event,callback)=>{
-					this.message("begin fetch ...");
+					//this.message("begin fetch ...");
 					setTimeout(()=>{
-						this.message("end fetch")
+						//this.message("end fetch")
 						callback();
 					},2000);
 				}}>async button</Button>
@@ -62,11 +65,17 @@ export default class APP extends Component{
 					borderRadius:10
 				}}}>border readius button</Button>
 				<Button styles={buttonStyles}
-					onPress={event=>{
+						onPress={event=>{
 						this.message("image button is pressed")
 					}}>
 					<Image source={require("./assets/button.png")}/>
 				</Button>
+				<Button
+					disabled={this.state.disabled}
+					styles={buttonStyles}
+					onPress={event=>{
+						this.disable();
+					}}>disable when press</Button>
 			</View>
 		);
 	}

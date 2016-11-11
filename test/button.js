@@ -44,7 +44,8 @@ export default class Button extends Component {
 			opacity: 1,
 			activity: false
 		};
-		console.log(props.children, typeof(props.children));
+		this.async=props.onPress.length>1;
+		this.asyncRunning=false;
 	}
 
 	static propTypes = {
@@ -66,12 +67,6 @@ export default class Button extends Component {
 		onPress: ()=>null
 	}
 
-	componentWillReceiveProps(nextProps) {
-		console.log(nextProps);
-		// this.setState(Object.assign({}, this.state, {
-		// 	disabled: nextProps.disabled
-		// }));
-	}
 
 	disable(value = true, callback = ()=>null) {
 		this.setState(Object.assign({}, this.state, {
@@ -85,7 +80,13 @@ export default class Button extends Component {
 			disabled: nextProps.disabled
 		}));
 	}
-	
+
+	shouldComponentUpdate(){
+		if(this.asyncRunning){
+			return false;
+		}
+		return true;
+	}
 
 	render() {
 		let viewStyle = [styles.view, this.props.styles.view, {
@@ -112,13 +113,14 @@ export default class Button extends Component {
 						opacity:1,
 						activity:false
 					}),()=>{
-						let len=this.props.onPress.length;
-						if(len<=1){
+						if(!this.async){
 							this.props.onPress(event);
 						}
 						else{
 							this.disable(true,()=>{
+								this.asyncRunning=true
 								this.props.onPress(event,()=>{
+									this.asyncRunning=false;
 									this.disable(false);
 								});
 							});

@@ -54,9 +54,9 @@ export default class APP extends Component {
 						this.message("i am pressed");
 					}}>button</Button>
 				<Button styles={buttonStyles} onPress={(event,callback)=>{
-					//this.message("begin fetch ...");
+					this.message("begin fetch ...");
 					setTimeout(()=>{
-						//this.message("end fetch")
+						this.message("end fetch")
 						callback();
 					},2000);
 				}}>async button</Button>
